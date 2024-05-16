@@ -1,0 +1,36 @@
+{
+  "name": "create-polka-dapp",
+  "version": "0.0.1",
+  "description": "Scaffolding CLI to help developers get started with creating frontend dApps on the Polkadot Ecosystem",
+  "main": "./dist/index.js",
+  "type": "module",
+  "keywords": [
+    "polkadot",
+    "dapp",
+    "frontend",
+    "kusama",
+    "parachains",
+    "substrate",
+    "blockchain"
+  ],
+  "scripts": {
+    "typecheck": "tsc",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "bun dist/index.js",
+    "publish-cli": "bun run build && npm publish",
+    "local": "bun run build && bun run unlink && bun run link"
+  },
+  "author": "opeoginni",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.21",
+    "tsup": "^8.0.2"
+  }
+}
