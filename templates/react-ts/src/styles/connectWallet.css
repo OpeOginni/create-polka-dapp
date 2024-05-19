@@ -1,0 +1,61 @@
+.wallets {
+  display: flex;
+  grid-column: 2;
+  gap: 1rem;
+}
+
+.wallets-dialog {
+  padding-top: 3rem;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #140523;
+  padding: 7px;
+  border-radius: 1rem;
+}
+
+.show-accounts {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.accounts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.connected-account {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.account-name {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.account-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.disconnect-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  flex-direction: row;
+  gap: 1rem;
+}
