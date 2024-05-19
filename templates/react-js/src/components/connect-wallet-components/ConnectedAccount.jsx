@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useConnectedWalletStore from "../../zustand/useConnectWalletStore";
 import "../../styles/connectWallet.css";
 
-const shorten = (str: string | undefined) => {
+const shorten = (str) => {
   if (!str) return str;
   const size = 10;
   let result = str;

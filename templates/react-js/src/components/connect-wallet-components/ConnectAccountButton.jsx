@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useConnectedWalletStore from "../../zustand/useConnectWalletStore";
-import type { Account } from "@polkadot-onboard/core";
 import "../../styles/connectWallet.css";
+import PropTypes from "prop-types";
 
-const shorten = (str: string | undefined) => {
+const shorten = (str) => {
   if (!str) return str;
   const size = 10;
   let result = str;
@@ -21,7 +21,7 @@ export default function ConnectAccountButton() {
 
   const [showAccounts, setShowAccounts] = useState(false);
 
-  function AccountItem({ account }: { account: Account }) {
+  function AccountItem({ account }) {
     return (
       <div className="account-item">
         <div className="account-name">{shorten(account?.name)}</div>
@@ -39,6 +39,13 @@ export default function ConnectAccountButton() {
       </div>
     );
   }
+
+  AccountItem.propTypes = {
+    account: PropTypes.shape({
+      name: PropTypes.string,
+      address: PropTypes.string,
+    }),
+  };
 
   if (accounts.length === 0) {
     return <div>You have No Account</div>;

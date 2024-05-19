@@ -1,7 +1,5 @@
-import React from "react";
 import { memo } from "react";
 import { useWallets } from "@polkadot-onboard/react";
-import type { BaseWallet } from "@polkadot-onboard/core";
 import Wallet from "./Wallet";
 import "../../styles/connectWallet.css";
 
@@ -15,7 +13,7 @@ const Wallets = () => {
 
   return (
     <div className="wallets">
-      {wallets.map((wallet: BaseWallet) => (
+      {wallets.map((wallet) => (
         <Wallet key={wallet.metadata.title} wallet={wallet} />
       ))}
     </div>

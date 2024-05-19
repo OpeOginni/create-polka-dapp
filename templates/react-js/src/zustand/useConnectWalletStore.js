@@ -1,24 +1,10 @@
 import { create } from "zustand";
-import { createContext } from "react";
-import type { Account, BaseWallet } from "@polkadot-onboard/core";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
-interface ConnectedWalletState {
-  connectedWallet: BaseWallet | null;
-  isWalletConnected: boolean;
-  connectWallet: (wallet: BaseWallet) => void;
-  disconnectWallet: () => void;
-  connectedAccount: Account | null;
-  connectAccount: (account: Account) => void;
-  disconnectAccount: () => void;
-  accounts: Account[];
-  api: ApiPromise | null;
-}
-
-const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
+const useConnectedWalletStore = create()((set) => ({
   connectedWallet: null,
   isWalletConnected: false,
-  connectWallet: async (wallet: BaseWallet) => {
+  connectWallet: async (wallet) => {
     try {
       await wallet.connect();
 
@@ -47,7 +33,7 @@ const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
     });
   },
   connectedAccount: null,
-  connectAccount: async (account: Account) => {
+  connectAccount: async (account) => {
     try {
       set({ connectedAccount: account });
     } catch (error) {

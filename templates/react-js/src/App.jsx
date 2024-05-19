@@ -1,16 +1,14 @@
 import "./App.css";
 import ReactLogo from "./components/logos/react";
-import TypeScriptLogo from "./components/logos/typescript";
 import ViteLogo from "./components/logos/vite";
+import JavaScriptLogo from "./components/logos/javascript";
 import useConnectedWalletStore from "./zustand/useConnectWalletStore";
-import { type SetStateAction, useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 function App() {
   const { connectedWallet, api, connectedAccount } = useConnectedWalletStore();
 
-  const [balance, setBalance] = useState<number>(0);
-  const [chainToken, setChainToken] = useState<string>("");
-  const [chain, setChain] = useState<string>("");
+  const [balance, setBalance] = useState(0);
+  const [chain, setChain] = useState("");
 
   useEffect(() => {
     async function getChainData() {
@@ -23,15 +21,9 @@ function App() {
 
       if (connectedAccount?.address) {
         const chainToken = await api.registry.chainTokens[0];
-        api.query.system.account(
-          connectedAccount?.address,
-          (res: {
-            data: { free: { toHuman: () => SetStateAction<number> } };
-          }) => {
-            setBalance(res.data.free.toHuman());
-            setChainToken(chainToken);
-          }
-        );
+        api.query.system.account(connectedAccount?.address, (res) => {
+          setBalance(`${res.data.free.toHuman()} ${chainToken}`);
+        });
       }
     }
     getChainData();
@@ -39,7 +31,8 @@ function App() {
 
   async function signTransaction() {
     try {
-      if (api && connectedAccount?.address && connectedWallet?.signer) {
+      const chain = await api.rpc.system.chain();
+      if (api && connectedAccount?.address && connectedWallet.signer) {
         const signer = connectedWallet.signer;
         const decimals = api.registry.chainDecimals[0];
         console.log(decimals);
@@ -51,6 +44,8 @@ function App() {
             // do something with result
           });
       }
+
+      console.log(chain);
     } catch (err) {
       alert("Error signing transaction");
       console.log(err);
@@ -59,7 +54,7 @@ function App() {
   return (
     <main className="page-body">
       <div className="logos-container">
-        <TypeScriptLogo className="logo" />
+        <JavaScriptLogo className="logo" />
 
         <h1>+</h1>
 
@@ -77,9 +72,7 @@ function App() {
       {connectedWallet?.isConnected ? (
         <div className="sample-transaction">
           {connectedAccount?.address && (
-            <p className="balance-label">
-              Balance: {balance} {chainToken}
-            </p>
+            <p className="balance-label">Balance: {balance}</p>
           )}
           <button
             type="button"
@@ -100,7 +93,7 @@ function App() {
       )}
 
       <p className="instructions">
-        Make Changes to <code>/src/App.tsx</code>
+        Make Changes to <code>/src/App.jsx</code>
       </p>
     </main>
   );

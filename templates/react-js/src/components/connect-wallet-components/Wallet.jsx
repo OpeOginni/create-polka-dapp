@@ -1,14 +1,11 @@
-import React from "react";
 import { memo } from "react";
-import type { BaseWallet } from "@polkadot-onboard/core";
 import useConnectedWalletStore from "../../zustand/useConnectWalletStore";
+import PropTypes from "prop-types";
 
-const Wallet = ({ wallet }: { wallet: BaseWallet }) => {
+const Wallet = ({ wallet }) => {
   const { connectWallet } = useConnectedWalletStore();
 
   const connectWalletHandler = async () => {
-    console.log("wallet clicked!");
-
     connectWallet(wallet);
   };
 
@@ -31,6 +28,14 @@ const Wallet = ({ wallet }: { wallet: BaseWallet }) => {
   );
 };
 
-const MemoWallet = memo(Wallet);
+Wallet.propTypes = {
+  wallet: PropTypes.shape({
+    metadata: PropTypes.shape({
+      iconUrl: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
+const MemoWallet = memo(Wallet);
 export default MemoWallet;
