@@ -55,7 +55,7 @@ inquirer.prompt(PROMPTS).then((answers) => {
   const templatePath = path.join(__dirname, "..", `templates/${projectChoice}`);
 
   console.log(
-    `creating a new Tezos Dapp in ${chalk.green(
+    `creating a new Polkadot Dapp in ${chalk.green(
       `${CURR_DIR}/${projectName}`
     )}...`
   );
