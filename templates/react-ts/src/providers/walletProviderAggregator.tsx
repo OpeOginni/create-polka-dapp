@@ -3,7 +3,7 @@
 import { WalletAggregator } from "@polkadot-onboard/core";
 import { InjectedWalletProvider } from "@polkadot-onboard/injected-wallets";
 import { WalletConnectProvider } from "@polkadot-onboard/wallet-connect";
-import { extensionConfig } from "../configs/extentionConnectConfig.tsx";
+import { extensionConfig } from "../configs/extensionConnectConfig.tsx";
 
 const APP_NAME = import.meta.env.VITE_APP_NAME as string;
 
