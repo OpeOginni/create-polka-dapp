@@ -1,4 +1,4 @@
-# create-polka-dapp
+# create-polka-dapp <a href="https://www.npmjs.com/package/create-polka-dapp"><img src="https://img.shields.io/npm/v/create-polka-dapp" alt="npm package"></a>
 
 ## Make Starting Up your Polkadot / Substrate dApp Easy and Convenient
 

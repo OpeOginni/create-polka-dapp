@@ -1,6 +1,6 @@
 {
   "name": "create-polka-dapp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scaffolding CLI to help developers get started with creating frontend dApps on the Polkadot Ecosystem",
   "repository": {
     "type": "git",
@@ -24,6 +24,9 @@
     "start": "bun dist/index.js",
     "publish-cli": "bun run build && npm publish",
     "local": "bun run build && bun run unlink && bun run link"
+  },
+  "bin": {
+    "create-polka-dapp": "./dist/index.js"
   },
   "author": "opeoginni",
   "license": "MIT",
