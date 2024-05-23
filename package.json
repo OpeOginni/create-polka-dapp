@@ -1,6 +1,6 @@
 {
   "name": "create-polka-dapp",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Scaffolding CLI to help developers get started with creating frontend dApps on the Polkadot Ecosystem",
   "repository": {
     "type": "git",

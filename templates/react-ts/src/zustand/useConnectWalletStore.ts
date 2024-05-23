@@ -22,7 +22,8 @@ const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
       await wallet.connect();
 
       const accounts = await wallet.getAccounts();
-      const WS_PROVIDER = import.meta.env.VITE_WS_PROVIDER;
+      // const WS_PROVIDER = import.meta.env.VITE_WS_PROVIDER;
+      const WS_PROVIDER = "wss://westend-rpc.polkadot.io";
       const provider = new WsProvider(WS_PROVIDER);
       const api = await ApiPromise.create({ provider });
 
