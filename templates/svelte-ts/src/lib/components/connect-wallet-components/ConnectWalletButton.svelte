@@ -8,7 +8,6 @@ import Wallets from "./Wallets.svelte";
 
 </script>
 
-<main>
     <div>
       <button
         type="button"
@@ -26,7 +25,6 @@ import Wallets from "./Wallets.svelte";
         {/if}
 
     </div>
-</main>
 
 <style>
   /* Add your styles here */

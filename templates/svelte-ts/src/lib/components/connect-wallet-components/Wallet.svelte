@@ -14,10 +14,8 @@ const connectWalletHandler = async () => {
 
 </script>
 
-<main>
-
+<div>
     <div class="wallet-option">
-
         {#if wallet?.metadata?.iconUrl}
         <img
           width={25}
@@ -33,8 +31,7 @@ const connectWalletHandler = async () => {
         Connect Wallet
       </button>
     </div>
-
-</main>
+</div>
 
 <style>
   /* Add your styles here */

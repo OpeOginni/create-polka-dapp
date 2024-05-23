@@ -17,7 +17,6 @@ const shorten = (str: string | undefined) => {
 };
 </script>
 
-<main>
       <div class="account-item">
         <div class="account-name">{shorten(account?.name)}</div>
         <div>{shorten(account?.address)}</div>
@@ -32,7 +31,6 @@ const shorten = (str: string | undefined) => {
           </button>
         </div>
       </div>
-</main>
 
 <style>
   /* Add your styles here */

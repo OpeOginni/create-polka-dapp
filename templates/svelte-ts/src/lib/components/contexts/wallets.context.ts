@@ -9,7 +9,8 @@ const walletAggregatorConfig = walletAggregator; // initialize this with your Wa
 export async function setWallets() {
   console.log("Setting");
   const walletsData = await walletAggregatorConfig.getWallets();
-  const wallets = writable<BaseWallet[] | undefined>(walletsData);
+  console.log(walletsData);
+  const wallets = writable<BaseWallet[]>(walletsData);
   setContext("useWallets", wallets);
   console.log("DONE");
 }

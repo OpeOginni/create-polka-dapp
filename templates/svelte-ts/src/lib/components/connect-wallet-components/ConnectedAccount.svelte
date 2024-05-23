@@ -21,7 +21,6 @@ const toggleShowDialog = () => {
 
 </script>
 
-<main>
     <div>
       <div class="connected-account">
         {#if $useConnectedWalletStore.connectedWallet?.metadata?.iconUrl}
@@ -64,7 +63,6 @@ const toggleShowDialog = () => {
         </dialog>
         {/if}
     </div>
-</main>
 
 <style>
   /* Add your styles here */

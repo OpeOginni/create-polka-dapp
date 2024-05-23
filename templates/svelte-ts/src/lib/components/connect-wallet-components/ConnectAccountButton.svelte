@@ -10,7 +10,6 @@ const toggleShowAccounts = () => {
 
 </script>
 
-<main>
     <div>
         {#if $useConnectedWalletStore.accounts.length === 0}
            <div>You have No Account</div>;
@@ -48,7 +47,6 @@ const toggleShowAccounts = () => {
     </div>
         {/if}
     </div>
-</main>
 
 <style>
   /* Add your styles here */

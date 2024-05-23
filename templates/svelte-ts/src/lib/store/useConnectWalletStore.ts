@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createEventDispatcher } from "svelte";
+// import { createEventDispatcher } from "svelte";
 import type { Account, BaseWallet } from "@polkadot-onboard/core";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import zustandToSvelte from "./zustandToSvelte";
@@ -16,7 +16,7 @@ interface ConnectedWalletState {
   api: ApiPromise | null;
 }
 
-const dispatch = createEventDispatcher();
+// const dispatch = createEventDispatcher();
 
 const useConnectedWalletStore = zustandToSvelte(
   create<ConnectedWalletState>((set) => ({
@@ -38,12 +38,12 @@ const useConnectedWalletStore = zustandToSvelte(
           api,
         });
 
-        dispatch("walletConnected", {
-          connectedWallet: wallet,
-          accounts,
-          isWalletConnected: true,
-          api,
-        });
+        // dispatch("walletConnected", {
+        //   connectedWallet: wallet,
+        //   accounts,
+        //   isWalletConnected: true,
+        //   api,
+        // });
       } catch (error) {
         console.log(error);
       }
@@ -57,17 +57,17 @@ const useConnectedWalletStore = zustandToSvelte(
         api: null,
       });
 
-      dispatch("walletDisconnected");
+      // dispatch("walletDisconnected");
     },
     connectedAccount: null,
     connectAccount: async (account: Account) => {
       try {
         set({ connectedAccount: account });
 
-        dispatch("accountConnected", {
-          connectedAccount: account,
-          address: account.address,
-        });
+        // dispatch("accountConnected", {
+        //   connectedAccount: account,
+        //   address: account.address,
+        // });
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +75,7 @@ const useConnectedWalletStore = zustandToSvelte(
     disconnectAccount: () => {
       set({ connectedAccount: null });
 
-      dispatch("accountDisconnected");
+      // dispatch("accountDisconnected");
     },
     accounts: [],
     api: null,
