@@ -16,10 +16,8 @@ const useWalletsStore = zustandToSvelte(
     wallets: [],
     setWallets: async () => {
       const timeoutId = setTimeout(async () => {
-        console.log("Setting");
         const wallets = await walletAggregator.getWallets();
         set({ wallets });
-        console.log("DONE");
       }, initialWaitMs);
       return () => clearTimeout(timeoutId);
     },

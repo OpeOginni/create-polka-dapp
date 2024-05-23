@@ -7,8 +7,6 @@ const Wallet = ({ wallet }: { wallet: BaseWallet }) => {
   const { connectWallet } = useConnectedWalletStore();
 
   const connectWalletHandler = async () => {
-    console.log("wallet clicked!");
-
     connectWallet(wallet);
   };
 

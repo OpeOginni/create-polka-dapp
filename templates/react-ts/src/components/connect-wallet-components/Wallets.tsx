@@ -8,7 +8,6 @@ import "../../styles/connectWallet.css";
 const Wallets = () => {
   const { wallets } = useWallets();
 
-  console.log(wallets);
   if (!Array.isArray(wallets)) {
     return null;
   }

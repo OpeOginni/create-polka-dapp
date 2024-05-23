@@ -41,9 +41,6 @@ function App() {
     try {
       if (api && connectedAccount?.address && connectedWallet?.signer) {
         const signer = connectedWallet.signer;
-        const decimals = api.registry.chainDecimals[0];
-        console.log(decimals);
-        console.log(api.registry);
 
         await api.tx.system
           .remark("Hello World")
@@ -85,7 +82,6 @@ function App() {
             type="button"
             onClick={() => {
               signTransaction();
-              console.log("Hello World");
             }}
           >
             Sign Transaction

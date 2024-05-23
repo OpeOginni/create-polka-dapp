@@ -7,8 +7,6 @@ import useConnectedWalletStore from "../../store/useConnectWalletStore";
 
 
 const connectWalletHandler = async () => {
-    console.log("wallet clicked!");
-
    $useConnectedWalletStore.connectWallet(wallet);
   };
 

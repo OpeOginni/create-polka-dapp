@@ -43,8 +43,6 @@
       if (api && connectedAccount?.address && connectedWallet?.signer) {
         const signer = connectedWallet.signer;
         const decimals = api.registry.chainDecimals[0];
-        console.log(decimals);
-        console.log(api.registry);
 
         await api.tx.system
           .remark("Hello World")
@@ -62,7 +60,6 @@
     $: {
     if(api) {
       getChainData()
-      console.log("Got Chain Details")
     }
   }
 
