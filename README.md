@@ -33,7 +33,8 @@ Then follow the prompts!
 
 Currently supported template presets include:
 
-- `react + js`
-- `react + ts`
+- `react + js + @polkadot-onboard`
+- `react + ts + @polkadot-onboard`
+- `svelte + ts + @polkadot-onboard` 🚧 Work In Progress
 
 ## Happy Building on Polkadot!!
