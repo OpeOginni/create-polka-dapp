@@ -22,7 +22,7 @@ function App() {
       setChain(`${chain} - ${nodeName}`);
 
       if (connectedAccount?.address) {
-        const chainToken = await api.registry.chainTokens[0];
+        const chainToken = api.registry.chainTokens[0];
         api.query.system.account(
           connectedAccount?.address,
           (res: {

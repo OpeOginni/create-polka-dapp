@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { createContext } from "react";
 import type { Account, BaseWallet } from "@polkadot-onboard/core";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
