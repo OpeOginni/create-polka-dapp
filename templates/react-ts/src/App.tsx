@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import ReactLogo from "./components/logos/react";
 import TypeScriptLogo from "./components/logos/typescript";
@@ -74,19 +75,21 @@ function App() {
       {connectedWallet?.isConnected ? (
         <div className="sample-transaction">
           {connectedAccount?.address && (
-            <p className="balance-label">
-              Balance: {balance} {chainToken}
-            </p>
-          )}
-          <button
-            type="button"
-            onClick={() => {
-              signTransaction();
-            }}
-          >
-            Sign Transaction
-          </button>
+            <>
+              <p className="balance-label">
+                Balance: {balance} {chainToken}
+              </p>
 
+              <button
+                type="button"
+                onClick={() => {
+                  signTransaction();
+                }}
+              >
+                Sign Transaction
+              </button>
+            </>
+          )}
           <p className="chain-label">{chain}</p>
         </div>
       ) : (

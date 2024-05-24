@@ -1,11 +1,9 @@
-"use client";
-
 import { WalletAggregator } from "@polkadot-onboard/core";
 import { InjectedWalletProvider } from "@polkadot-onboard/injected-wallets";
 import { WalletConnectProvider } from "@polkadot-onboard/wallet-connect";
 import { extensionConfig } from "../configs/extensionConnectConfig.jsx";
 
-const APP_NAME = import.meta.env.VITE_APP_NAME;
+const APP_NAME = import.meta.env.VITE_APP_NAME || "Create-Polka-Dapp";
 
 const walletConnectParams = {
   projectId: "4fae...", // Put Project URL

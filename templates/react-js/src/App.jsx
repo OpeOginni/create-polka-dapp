@@ -8,6 +8,7 @@ function App() {
   const { connectedWallet, api, connectedAccount } = useConnectedWalletStore();
 
   const [balance, setBalance] = useState(0);
+  const [chainToken, setChainToken] = useState("");
   const [chain, setChain] = useState("");
 
   useEffect(() => {
@@ -22,7 +23,8 @@ function App() {
       if (connectedAccount?.address) {
         const chainToken = await api.registry.chainTokens[0];
         api.query.system.account(connectedAccount?.address, (res) => {
-          setBalance(`${res.data.free.toHuman()} ${chainToken}`);
+          setBalance(res.data.free.toHuman());
+          setChainToken(chainToken);
         });
       }
     }
@@ -66,16 +68,21 @@ function App() {
       {connectedWallet?.isConnected ? (
         <div className="sample-transaction">
           {connectedAccount?.address && (
-            <p className="balance-label">Balance: {balance}</p>
+            <>
+              <p className="balance-label">
+                Balance: {balance} {chainToken}
+              </p>
+
+              <button
+                type="button"
+                onClick={() => {
+                  signTransaction();
+                }}
+              >
+                Sign Transaction
+              </button>
+            </>
           )}
-          <button
-            type="button"
-            onClick={() => {
-              signTransaction();
-            }}
-          >
-            Sign Transaction
-          </button>
 
           <p className="chain-label">{chain}</p>
         </div>
