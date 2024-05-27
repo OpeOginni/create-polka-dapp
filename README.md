@@ -36,5 +36,6 @@ Currently supported template presets include:
 - `react + js + @polkadot-onboard`
 - `react + ts + @polkadot-onboard`
 - `svelte + ts + @polkadot-onboard` 🚧 Work In Progress
+- `VARA + next + ts + @polkadot-onboard`
 
 ## Happy Building on Polkadot!!

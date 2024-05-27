@@ -1,6 +1,6 @@
 {
   "name": "create-polka-dapp",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Scaffolding CLI to help developers get started with creating frontend dApps on the Polkadot Ecosystem",
   "repository": {
     "type": "git",
@@ -36,8 +36,13 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@gear-js/api": "^0.38.1",
+    "@polkadot-onboard/core": "^1.1.0",
+    "@polkadot-onboard/injected-wallets": "^1.1.0",
+    "@polkadot-onboard/wallet-connect": "^1.1.0",
     "chalk": "^5.3.0",
     "inquirer": "^9.2.21",
-    "tsup": "^8.0.2"
+    "tsup": "^8.0.2",
+    "zustand": "^4.5.2"
   }
 }
