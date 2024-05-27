@@ -38,4 +38,4 @@ Currently supported template presets include:
 - `svelte + ts + @polkadot-onboard` 🚧 Work In Progress
 - `VARA + next + ts + @polkadot-onboard`
 
-## Happy Building on Polkadot!!
+## Happy Building on Polkadot and VARA!!
