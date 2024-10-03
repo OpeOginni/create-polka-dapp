@@ -1,10 +1,9 @@
-import React from "react";
-import "./App.css";
+import React, { useEffect, useState } from "react";
 import ReactLogo from "./components/logos/react";
 import TypeScriptLogo from "./components/logos/typescript";
 import ViteLogo from "./components/logos/vite";
 import useConnectedWalletStore from "./zustand/useConnectWalletStore";
-import { type SetStateAction, useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 function App() {
   const { connectedWallet, api, connectedAccount } = useConnectedWalletStore();
@@ -27,7 +26,7 @@ function App() {
         api.query.system.account(
           connectedAccount?.address,
           (res: {
-            data: { free: { toHuman: () => SetStateAction<number> } };
+            data: { free: { toHuman: () => React.SetStateAction<number> } };
           }) => {
             setBalance(res.data.free.toHuman());
             setChainToken(chainToken);
@@ -54,53 +53,59 @@ function App() {
       console.log(err);
     }
   }
+
   return (
-    <main className="page-body">
-      <div className="logos-container">
-        <TypeScriptLogo className="logo" />
+    <main className="min-h-screen bg-gradient-to-b from-purple-900 to-purple-700 text-white py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-center items-center space-x-6 mb-12">
+          <TypeScriptLogo className="w-16 h-16" />
+          <ArrowRight size={24} />
+          <ReactLogo className="w-16 h-16" />
+          <ArrowRight size={24} />
+          <ViteLogo className="w-16 h-16" />
+          <ArrowRight size={24} />
+          <img
+            src="/images/polkadot-logo.svg"
+            alt="Polkadot"
+            className="w-16 h-16"
+          />
+        </div>
 
-        <h1>+</h1>
+        <div className="bg-white/10 backdrop-blur-md rounded-lg p-8 mb-8">
+          {connectedWallet?.isConnected ? (
+            <div className="space-y-4">
+              {connectedAccount?.address && (
+                <>
+                  <p className="text-xl font-semibold">
+                    Balance: {balance} {chainToken}
+                  </p>
 
-        <ReactLogo className="logo" />
-
-        <h1>+</h1>
-
-        <ViteLogo className="logo" />
-
-        <h1>+</h1>
-
-        <img src="/images/polkadot-logo.svg" alt="Polkadot" className="logo" />
-      </div>
-
-      {connectedWallet?.isConnected ? (
-        <div className="sample-transaction">
-          {connectedAccount?.address && (
-            <>
-              <p className="balance-label">
-                Balance: {balance} {chainToken}
+                  <button
+                    type="button"
+                    onClick={signTransaction}
+                    className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                  >
+                    Sign Transaction
+                  </button>
+                </>
+              )}
+              <p className="text-sm opacity-75">{chain}</p>
+            </div>
+          ) : (
+            <div className="text-center">
+              <h4 className="text-2xl font-bold mb-4">Connect your Wallet</h4>
+              <p className="opacity-75">
+                Please connect your wallet to interact with the dApp.
               </p>
-
-              <button
-                type="button"
-                onClick={() => {
-                  signTransaction();
-                }}
-              >
-                Sign Transaction
-              </button>
-            </>
+            </div>
           )}
-          <p className="chain-label">{chain}</p>
         </div>
-      ) : (
-        <div>
-          <h4>Conntect your Wallet</h4>
-        </div>
-      )}
 
-      <p className="instructions">
-        Make Changes to <code>/src/App.tsx</code>
-      </p>
+        <p className="text-center text-lg">
+          Make changes to{" "}
+          <code className="bg-purple-800 px-2 py-1 rounded">src/App.tsx</code>
+        </p>
+      </div>
     </main>
   );
 }
