@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import type { Account, BaseWallet } from "@polkadot-onboard/core";
 import { ApiPromise, WsProvider } from "@polkadot/api";
+import {
+  type ChainConfig,
+  chainsConfig,
+  getApiForChain,
+} from "../configs/chainsConfig";
 
 interface ConnectedWalletState {
   connectedWallet: BaseWallet | null;
@@ -12,6 +17,8 @@ interface ConnectedWalletState {
   disconnectAccount: () => void;
   accounts: Account[];
   api: ApiPromise | null;
+  currentChain: ChainConfig | null;
+  changeChain: (chain: ChainConfig) => void;
 }
 
 const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
@@ -22,8 +29,9 @@ const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
       await wallet.connect();
 
       const accounts = await wallet.getAccounts();
-      // const WS_PROVIDER = import.meta.env.VITE_WS_PROVIDER;
-      const WS_PROVIDER = "wss://westend-rpc.polkadot.io";
+      const DEFAULT_CHAIN = chainsConfig[0];
+
+      const WS_PROVIDER = DEFAULT_CHAIN.wsUrl;
       const provider = new WsProvider(WS_PROVIDER);
       const api = await ApiPromise.create({ provider });
 
@@ -32,6 +40,7 @@ const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
         accounts,
         isWalletConnected: true,
         api,
+        currentChain: DEFAULT_CHAIN,
       });
     } catch (error) {
       console.log(error);
@@ -59,6 +68,11 @@ const useConnectedWalletStore = create<ConnectedWalletState>()((set) => ({
   },
   accounts: [],
   api: null,
+  currentChain: null,
+  changeChain: async (chainConfig: ChainConfig) => {
+    const api = await getApiForChain(chainConfig);
+    set({ api: api, currentChain: chainConfig });
+  },
 }));
 
 export default useConnectedWalletStore;

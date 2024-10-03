@@ -1,10 +1,13 @@
+"use client";
+
 import React, { useState, useCallback, useMemo } from "react";
 import { useWallets } from "@polkadot-onboard/react";
-import useConnectedWalletStore from "../zustand/useConnectWalletStore";
-import { Wallet, LogOut, ChevronDown, X, ExternalLink } from "lucide-react";
+import { useWalletStore } from "@/providers/walletStoreProvider";
+import { Wallet, LogOut, ChevronDown, X } from "lucide-react";
 import type { BaseWallet } from "@polkadot-onboard/core";
-import { extensionConfig } from "../configs/extensionConnectConfig";
-import { type ChainConfig, chainsConfig } from "../configs/chainsConfig";
+import { ExternalLink } from "lucide-react";
+import { extensionConfig } from "@/configs/extensionConnectConfig";
+import { type ChainConfig, chainsConfig } from "@/configs/chainsConfig";
 
 const WalletModal: React.FC<{
   isOpen: boolean;
@@ -134,7 +137,7 @@ const Header: React.FC = () => {
     connectWallet,
     currentChain,
     changeChain,
-  } = useConnectedWalletStore();
+  } = useWalletStore((state) => state);
 
   const { wallets } = useWallets();
 
