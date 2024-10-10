@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { input, select, Separator } from "@inquirer/prompts";
+import { confirm, input, select, Separator } from "@inquirer/prompts";
 
 import ora from "ora";
 
@@ -8,6 +8,7 @@ import * as fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import createDirectoryContents from "./createDirectoryContents.js";
+import endingLogs from "./logs.js";
 
 type Choice<Value> = {
   value: Value;
@@ -22,15 +23,16 @@ const CURR_DIR = process.cwd();
 // dirname is not available in ES6 modules
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const PROJECT_TYPE_CHOICES: Choice<string>[] = fs
-  .readdirSync(path.join(__dirname, "..", "templates"))
-  .map((type) => {
+const PROJECT_TYPE_CHOICES: Choice<string>[] = [
+  ...fs.readdirSync(path.join(__dirname, "..", "templates")).map((type) => {
     const projectType = type.replace(/-/g, " + ").replace(/_/g, " ");
     return {
       value: type,
       name: projectType,
     };
-  });
+  }),
+  { value: "frontend_contract", name: "frontend + contract" },
+];
 
 const PROJECT_CHOICES = (type: string) =>
   fs
@@ -47,10 +49,25 @@ const selectedProjectType = await select({
   choices: PROJECT_TYPE_CHOICES,
 });
 
-const selectedProject = await select({
-  message: "What project template would you like to generate?",
-  choices: PROJECT_CHOICES(selectedProjectType),
-});
+let selectedFrontend = "";
+let selectedContract = "";
+let selectedProject = "";
+
+if (selectedProjectType === "frontend_contract") {
+  selectedFrontend = await select({
+    message: "Select a frontend template:",
+    choices: PROJECT_CHOICES("frontend"),
+  });
+  selectedContract = await select({
+    message: "Select a contract template:",
+    choices: PROJECT_CHOICES("contract"),
+  });
+} else {
+  selectedProject = await select({
+    message: "What project template would you like to generate?",
+    choices: PROJECT_CHOICES(selectedProjectType),
+  });
+}
 
 const projectName = await input({
   message: "Project name:",
@@ -66,28 +83,50 @@ const projectName = await input({
   },
 });
 
+const templatePaths: string[] = [];
+let useSubDir = false;
+
+if (selectedProjectType !== "frontend_contract") {
+  useSubDir = await confirm({
+    message:
+      "Do you want to create a subdirectory for this template? (EG: project-name/frontend or project-name/contract)",
+    default: false,
+  });
+} else {
+  useSubDir = true;
+}
+
 const spinner = ora(
   `creating a new Polkadot Dapp in ${CURR_DIR}/${projectName}`
 ).start();
 
-const templatePath = path.join(
-  __dirname,
-  "..",
-  `templates/${selectedProjectType}/${selectedProject}`
-);
+if (selectedProjectType === "frontend_contract") {
+  templatePaths.push(
+    path.join(__dirname, "..", `templates/frontend/${selectedFrontend}`)
+  );
+  templatePaths.push(
+    path.join(__dirname, "..", `templates/contract/${selectedContract}`)
+  );
+} else {
+  templatePaths.push(
+    path.join(
+      __dirname,
+      "..",
+      `templates/${selectedProjectType}/${selectedProject}`
+    )
+  );
+}
 
 fs.mkdirSync(`${CURR_DIR}/${projectName}`);
 
-createDirectoryContents(templatePath, projectName);
+for (const templatePath of templatePaths) {
+  createDirectoryContents(templatePath, projectName, useSubDir);
+}
 
 spinner.succeed();
 
 console.log("\n");
 
-console.log("Done. Now run:\n");
-
-console.log(`cd ${projectName}`);
-console.log("npm install");
-console.log("npm run dev");
+endingLogs(selectedProjectType, projectName, useSubDir);
 
 process.exit(0);
