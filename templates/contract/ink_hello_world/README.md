@@ -67,3 +67,16 @@ Before you begin, ensure you have the following installed:
 - Verify that you're connected to the correct node in the Contracts UI.
 
 For more detailed information, refer to the official ink! documentation at https://use.ink/
+
+## Interacting with the Contract from the Frontend
+
+To interact with this contract from your frontend:
+
+1. After deploying your contract, you'll need to export the contract's ABI (Application Binary Interface).
+2. In your frontend project, create a new file (e.g., `contractABI.json`) and paste the exported ABI into this file.
+3. Import this ABI in your frontend code where you want to interact with the contract.
+4. Use the ABI along with the contract's address to create a contract instance and call its functions.
+
+Refer to the commented example in your frontend's `App.tsx` (or similar main component file) for a basic structure of how to interact with a contract.
+
+Scaffolded with [CREATE-POLKA-DAPP](https://www.npmjs.com/package/create-polka-dapp)

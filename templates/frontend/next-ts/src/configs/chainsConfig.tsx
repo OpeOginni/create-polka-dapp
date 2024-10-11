@@ -5,6 +5,7 @@ export interface ChainConfig {
   rpcUrl: string;
   wsUrl: string;
   logo: string;
+  contractAddress?: string;
 }
 
 export const chainsConfig: ChainConfig[] = [

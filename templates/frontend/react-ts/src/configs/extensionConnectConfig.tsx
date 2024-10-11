@@ -80,20 +80,5 @@ export const extensionConfig: ExtensionConfiguration = {
       },
       iconUrl: "/images/subwallet-icon.svg",
     },
-    {
-      id: "subwallet",
-      title: "SubWallet",
-      description:
-        "Comprehensive Polkadot, Substrate & Ethereum wallet Empower the next blockchain revolution with a one-stop-shop for the multichain",
-      urls: {
-        main: "https://www.subwallet.app/",
-        browsers: {
-          chrome:
-            "https://chrome.google.com/webstore/detail/subwallet-polkadot-extens/onhogfjeacnfoofkfgppdlbmlmnplgbn",
-          firefox: "https://addons.mozilla.org/en-US/firefox/addon/subwallet/",
-        },
-      },
-      iconUrl: "/images/subwallet-icon.svg",
-    },
   ],
 };

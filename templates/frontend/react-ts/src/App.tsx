@@ -54,6 +54,35 @@ function App() {
     }
   }
 
+  // Example function to interact with a smart contract uing the `@polkadot/api-contract` package
+  // https://polkadot.js.org/docs/api-contract/start/contract.read
+  // https://www.npmjs.com/package/@polkadot/api-contract
+
+  // async function callContractFunction() {
+  //   try {
+  //     if (api && connectedAccount?.address) {
+  //       // Import your contract ABI and address
+  //       // import contractABI from './path/to/contractABI.json';
+  //       // const contractAddress = 'YOUR_CONTRACT_ADDRESS';
+  //
+  //       // Create a contract instance
+  //       // const contract = new ContractPromise(api, contractABI, contractAddress);
+  //
+  //       // Call a read-only function
+  //       // const { result, output } = await contract.query.yourFunctionName(connectedAccount.address, {});
+  //
+  //       // Call a function that modifies state
+  //       // const extrinsic = contract.tx.yourFunctionName({});
+  //       // await extrinsic.signAndSend(connectedAccount.address, (result) => {
+  //       //   console.log(`Current status is ${result.status}`);
+  //       // });
+  //     }
+  //   } catch (err) {
+  //     alert("Error interacting with contract");
+  //     console.log(err);
+  //   }
+  // }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-purple-900 to-purple-700 text-white py-12 px-4">
       <div className="max-w-4xl mx-auto">
