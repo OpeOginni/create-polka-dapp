@@ -15,10 +15,13 @@ mod ink_hello_world {
     }
 
     impl InkHelloWorld {
-        /// Constructor that initializes the `String` value to "hello world".
+        /// Constructor that initializes the `String` value to the given `message`,
+        /// or "hello world" if no message is provided.
         #[ink(constructor)]
-        pub fn new() -> Self {
-            Self { message: String::from("hello world") }
+        pub fn new(message: Option<String>) -> Self {
+            Self {
+                message: message.unwrap_or_else(|| String::from("hello world")),
+            }
         }
 
         /// A message that can be called on instantiated contracts.

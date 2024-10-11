@@ -9,6 +9,7 @@ Before you begin, ensure you have the following installed:
 1. Rust and Cargo (https://www.rust-lang.org/tools/install)
 2. cargo-contract CLI (https://github.com/paritytech/cargo-contract)
 3. substrate-contracts-node (https://github.com/paritytech/substrate-contracts-node)
+4. Node.js and npm (https://nodejs.org/)
 
 ## Step 1: Build the Contract
 
@@ -38,35 +39,87 @@ Before you begin, ensure you have the following installed:
 
 ## Step 3: Deploy the Contract
 
-1. Go to https://contracts-ui.substrate.io/
-2. Connect to your local node by selecting "Local Node" in the top-left dropdown.
-3. Click "Add New Contract" in the sidebar.
-4. Click "Upload New Contract Code".
-5. Choose an instantiation account (e.g., ALICE).
-6. Give your contract a name.
-7. Drag and drop your `your_contract.contract` file into the upload area.
-8. Click "Next" and follow the prompts to upload and instantiate your contract.
+1. Ensure you have set up your environment variables:
+
+   - Copy the `.env_example` file to `.env`
+   - Replace `your_seed_phrase_here` with your actual deployer account's seed phrase
+
+2. Open a terminal in your contract's directory.
+
+3. Run the deployment script with the following command:
+
+   ```
+   npm run deploy -- --network=<network_name> --contract=<contract_name> [--arg1=<value1> --arg2=<value2> ...]
+   ```
+
+   Replace `<network_name>` with the desired network (e.g., local, rococo, shibuya) and `<contract_name>` with your contract's name.
+
+   Optional: Add constructor arguments using `--argN=<valueN>` format.
+
+   Example:
+
+   ```
+   npm run deploy -- --network=local --contract=ink_hello_world --arg1="Custom hello message"
+   ```
+
+4. The script will build the contract, deploy it to the specified network, and output the deployed contract's address.
+
+5. Make sure to save the contract address for future interactions.
+
+Note: Ensure your deployer account has sufficient funds for the deployment transaction.
 
 ## Step 4: Interact with the Contract
 
-1. After instantiation, you'll be taken to the contract's interaction page.
-2. Here, you can call your contract's functions:
-   - Use "read" calls for view functions that don't modify state.
-   - Use "execute" calls for functions that modify the contract's state.
+1. To interact with your deployed contract, use the following command:
+
+   ```
+   npm run interact -- --network=<network_name> --contract=<contract_name> --address=<contract_address> --function=<function_name> [--arg1=<value1> --arg2=<value2> ...]
+   ```
+
+   Replace the placeholders with your specific values.
+
+2. For read-only functions (queries), use:
+
+   ```
+   npm run interact -- --network=local --contract=ink_hello_world --address=<contract_address> --function=get_message
+   ```
+
+3. For state-changing functions, use:
+
+   ```
+   npm run interact -- --network=local --contract=ink_hello_world --address=<contract_address> --function=set_message --arg1="New message"
+   ```
+
+You can also create Scripts using the utlity function `interact`
+
+You can modify these scripts or create new ones based on your contract's functions.
+
+To use these scripts in your own code:
+
+1. Import the `interact` function:
+
+   ```javascript
+   import { interact } from "../utils/interact.js";
+   ```
+
+2. Call contract functions:
+   ```javascript
+   const result = await interact(
+     "local",
+     "ink_hello_world",
+     CONTRACT_ADDRESS,
+     "function_name",
+     ...args
+   );
+   ```
+
+Replace `"local"` with your desired network, `"ink_hello_world"` with your contract name, `CONTRACT_ADDRESS` with your deployed contract address, `"function_name"` with the function you want to call, and `...args` with any arguments the function requires.
 
 ## Additional Notes
 
 - Always use the `--release` flag when building contracts for production to optimize the WASM output.
 - Keep track of your contract's address after deployment for future interactions.
 - Ensure you have enough funds in your account for deployment and interaction costs.
-
-## Troubleshooting
-
-- If you encounter issues, check the Substrate node's console output for any error messages.
-- Ensure your contract compiles without errors before attempting to deploy.
-- Verify that you're connected to the correct node in the Contracts UI.
-
-For more detailed information, refer to the official ink! documentation at https://use.ink/
 
 ## Interacting with the Contract from the Frontend
 
