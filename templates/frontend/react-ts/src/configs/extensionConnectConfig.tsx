@@ -63,7 +63,7 @@ export const extensionConfig: ExtensionConfiguration = {
           firefox: "https://addons.mozilla.org/en-US/firefox/addon/polkagate/",
         },
       },
-      iconUrl: "/images/polkagate-icon.png",
+      iconUrl: "/images/polkagate-icon.svg",
     },
     {
       id: "subwallet",
