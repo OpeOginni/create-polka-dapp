@@ -35,9 +35,13 @@ const deploy = async (networkName, contractName, initArgs = []) => {
   const provider = new WsProvider(network.url);
   const api = await ApiPromise.create({ provider });
 
-  const keyring = new Keyring({ type: "sr25519" });
-  keyring.addFromSeed(process.env.DEPLOYER_SEED);
-  const deployer = keyring.getPairs()[0];
+  const keyring = new Keyring({
+    type: "sr25519",
+    ss58Format: api.runtimeChain.registry.chainSS58,
+  });
+  const deployer = keyring.addFromUri(process.env.DEPLOYER_SEED_PHRASE, {
+    name: "deployer",
+  });
 
   const contractMetadataPath = path.join(
     process.cwd(),

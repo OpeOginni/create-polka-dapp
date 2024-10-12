@@ -13,6 +13,9 @@ export default {
       url: "wss://westend-rpc.polkadot.io",
       storageDepositLimit: null,
     },
+    paseoPeople: {
+      url: "wss://people-paseo.rpc.amforc.com",
+    },
   },
   defaultNetwork: "local",
 };

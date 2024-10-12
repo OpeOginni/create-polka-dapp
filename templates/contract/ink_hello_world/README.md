@@ -1,4 +1,4 @@
-# ink! Contract Deployment Guide
+# ink! Contract Deployment Guide with create-polka-dapp contract utils functionalities
 
 This guide walks you through the process of building, deploying, and interacting with an ink! smart contract on a Substrate-based blockchain.
 
@@ -11,7 +11,11 @@ Before you begin, ensure you have the following installed:
 3. substrate-contracts-node (https://github.com/paritytech/substrate-contracts-node)
 4. Node.js and npm (https://nodejs.org/)
 
-## Step 1: Build the Contract
+## Step 1: Install NPM Packages
+
+1. Run `npm install` to get utility functionalities for contract processes like deployment and interaction.
+
+## Step 2: Build the Contract
 
 1. Navigate to your contract's directory.
 2. Run the following command to build your contract:
@@ -26,7 +30,7 @@ Before you begin, ensure you have the following installed:
    - `your_contract.json`: The metadata file describing your contract's interface.
    - `your_contract.contract`: A combination of the above two files.
 
-## Step 2: Start a Substrate Node
+## Step 3: Start a Substrate Node (Optional)
 
 1. Open a new terminal window.
 2. Start the Substrate node:
@@ -37,7 +41,7 @@ Before you begin, ensure you have the following installed:
 
    This will start a local Substrate node with the contracts pallet enabled.
 
-## Step 3: Deploy the Contract
+## Step 4: Deploy the Contract
 
 1. Ensure you have set up your environment variables:
 
@@ -68,7 +72,7 @@ Before you begin, ensure you have the following installed:
 
 Note: Ensure your deployer account has sufficient funds for the deployment transaction.
 
-## Step 4: Interact with the Contract
+## Step 5: Interact with the Contract
 
 1. To interact with your deployed contract, use the following command:
 
