@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { confirm, input, select, Separator } from "@inquirer/prompts";
+import { confirm, input, select } from "@inquirer/prompts";
 
 import ora from "ora";
 
@@ -38,9 +38,11 @@ const PROJECT_CHOICES = (type: string) =>
   fs
     .readdirSync(path.join(__dirname, "..", "templates", type))
     .map((project) => {
+      const isDisabled = project.at(-1) === "d";
       return {
         value: project,
         name: project.replace(/-/g, " + ").replace(/_/g, " "),
+        disabled: isDisabled,
       };
     });
 
