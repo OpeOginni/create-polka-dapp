@@ -68,35 +68,53 @@ const deploy = async (networkName, contractName, initArgs = []) => {
     process.exit(1);
   }
 
-  const contractMetadata = JSON.parse(
-    fs.readFileSync(path.join(contractMetadataPath), "utf8")
-  );
+  const metadataRaw = await fs.promises.readFile(contractMetadataPath, "utf8");
+  const contractMetadata = JSON.parse(metadataRaw);
+
+  const contractConstructor = contractMetadata.spec.constructors[0];
+  const expectedArgs = contractConstructor.args;
+
+  if (initArgs.length !== expectedArgs.length) {
+    console.error(
+      `Error: Expected ${expectedArgs.length} constructor arguments, but received ${initArgs.length}.`
+    );
+    console.error("Expected arguments:");
+    expectedArgs.forEach((arg, index) => {
+      console.error(
+        `  ${index + 1}. ${arg.name} (${arg.type.displayName || arg.type.type})`
+      );
+    });
+    process.exit(1);
+  }
 
   const contractWasm = fs.readFileSync(path.join(contractWasmPath));
 
   const code = new CodePromise(api, contractMetadata, contractWasm);
 
   // maximum gas to be consumed for the instantiation. if limit is too small the instantiation will fail.
-  const gasLimit = 100000n * 1000000n;
-
-  // used to derive contract address,
-  // use null to prevent duplicate contracts
-  const salt = new Uint8Array();
+  const gasLimit = api.registry.createType("WeightV2", {
+    refTime: 100000n * 1000000n,
+    proofSize: 100000n * 1000000n,
+  });
 
   const storageDepositLimit = network.storageDepositLimit
     ? BigInt(network.storageDepositLimit)
     : null;
 
-  const tx = code.tx.new({ gasLimit, storageDepositLimit }, ...initArgs);
+  const tx = code.tx.new({ gasLimit, storageDepositLimit }, initArgs[0]);
 
-  const unsub = await tx.signAndSend(deployer, async (result) => {
-    if (result.status.isInBlock || result.status.isFinalized) {
+  const unsub = await tx.signAndSend(deployer, async ({ contract, status }) => {
+    if (status.isInBlock) {
+      console.log("In block");
+    }
+    if (status.isFinalized) {
+      console.log("Finalized");
       console.log(
-        `Network: ${networkName}`,
-        `Contract: ${contractName}`,
-        `Deployed at: ${result.contract.address.toString()}`
+        `Network: ${networkName} \nContract: ${contractName} \nDeployed at: ${contract.address.toString()}`
       );
       unsub();
+      console.log("Deployment completed successfully.");
+      process.exit(0);
     }
   });
 };
@@ -106,8 +124,8 @@ const contractArg = process.argv[3]?.replace("--contract=", "");
 
 const initArgs = process.argv.slice(4).map((arg) => {
   if (arg.startsWith("--")) {
-    const [key, value] = arg.slice(2).split("=");
-    return { [key]: value };
+    const [, value] = arg.slice(2).split("=");
+    return value;
   }
   return arg;
 });
