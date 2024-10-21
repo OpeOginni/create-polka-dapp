@@ -1,6 +1,6 @@
 **/node_modules/
 **/.next/
-/src
+**/src/
 **/package-lock.json
 /SUBMISSION_README.md
 
